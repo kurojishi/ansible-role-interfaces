@@ -1,14 +1,4 @@
 ---
-
-- include: 'debian.yml'
-  when: ansible_os_family == 'Debian'
-
-- include: 'redhat.yml'
-  when: ansible_os_family == 'RedHat'
-
-- include: 'suse.yml'
-  when: ansible_os_family == 'Suse'
-
 - include: 'ethernet_configuration.yml'
   when: interfaces_ether_interfaces is defined
   tags: configuration

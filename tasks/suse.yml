@@ -1,0 +1,10 @@
+---
+
+- name: Suse | install current/latest network packages versions
+  zypper:
+    name: '{{ item }}'
+    state: '{{ interfaces_pkg_state }}'
+  with_items: "{{interfaces_pkgs['suse']}}"
+  tags: package
+
+
