@@ -4,7 +4,7 @@
   template:
     src: 'ethernet_{{ ansible_os_family }}.j2'
     dest: '{{ interfaces_net_path[ansible_os_family|lower] }}/ifcfg-{{ item.device }}'
-  with_items: interfaces_ether_interfaces
+  with_items: "{{interfaces_ether_interfaces}}"
   register: ether_result
 
 - name: RedHat | Write configuration files for rhel route configuration
