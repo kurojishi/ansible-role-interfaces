@@ -9,9 +9,14 @@ interfaces_pkgs:
     - libselinux-python
     - bridge-utils
     - iputils
+  suse:
+    - iputils
+    - bridge-utils
+    - python-selinux
 interfaces_net_path:
   debian: /etc/network/interfaces.d
   redhat: /etc/sysconfig/network-scripts
+  suse: /etc/sysconfig/network
 interfaces_pkg_state: installed
 interfaces_ether_interfaces: []
 interfaces_bridge_interfaces: []
