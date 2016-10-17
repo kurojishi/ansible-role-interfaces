@@ -6,6 +6,8 @@
     dest: '{{ interfaces_net_path[ansible_os_family|lower] }}/ifcfg-{{ item.device }}'
   with_items: "{{interfaces_ether_interfaces}}"
   register: ether_result
+  notify:
+    - networking restart
 
 - name: RedHat | Write configuration files for rhel route configuration
   template:
@@ -13,6 +15,8 @@
     dest: '{{ interfaces_net_path[ansible_os_family|lower] }}/route-{{ item.device }}'
   with_items: "{{network_ether_interfaces}}"
   when: item.route is defined and ansible_os_family == 'RedHat'
+  notify:
+    - network restart
 
 - name: Suse | Write configuration files for rhel route configuration
   template:
@@ -20,7 +24,7 @@
     dest: '{{ interfaces_net_path[ansible_os_family|lower] }}/route-{{ item.device }}'
   with_items: "{{network_ether_interfaces}}"
   when: item.route is defined and ansible_os_family == 'Suse'
+  notify:
+    - network restart
+    - netconf update
 
-- shell: 'ifdown {{ item.item.device }}; ifup {{ item.item.device }}'
-  with_items: "{{ether_result.results}}"
-  when: ether_result is defined and item.changed
